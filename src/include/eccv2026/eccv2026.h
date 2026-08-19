@@ -5,15 +5,6 @@
 #include <vector>
 
 namespace ECCV2026 {
-// Polynomial solvers
-Eigen::Vector4d solver_guan_cvpr_2020_ls(const Eigen::VectorXd &data);
-std::pair<Eigen::Matrix3d, Eigen::Matrix3d> solver_imu_planar(const Eigen::Matrix<double, 8, 1> &data_);
-std::pair<Eigen::Matrix3d, Eigen::Matrix3d> solver_imu_planar_sift(const Eigen::Matrix<double, 8, 1> &data_);
-std::pair<Eigen::VectorXd, Eigen::VectorXd>
-solver_guan_cvpr_2020_cs(const Eigen::Vector2d &Pi, const Eigen::Vector2d &Pj, const Eigen::Matrix2d &Ac);
-Eigen::Vector3d solver_known_rotation(const Eigen::Matrix<double, 8, 1> &data_);
-Eigen::Vector3d solver_known_rotation_sift(const Eigen::Matrix<double, 8, 1> &data_);
-std::vector<Eigen::Matrix3d> solver_choi_kim_2018(const Eigen::Matrix<double, 8, 1> &data_);
 std::tuple<Eigen::Matrix3d, Eigen::Vector3d, double> solver_p35pf(const Eigen::Matrix<double, 2, 4> &y,
                                                                   const Eigen::Matrix<double, 3, 4> &X);
 std::tuple<Eigen::Matrix3d, Eigen::Vector3d, double> solver_up1pf_ac(
@@ -82,11 +73,6 @@ solver_up3pfr(
     const Eigen::Matrix<double, 3, 3> &X,
     const Eigen::Matrix3d &Rxz
     );
-// Histogram voting
-std::pair<Eigen::Matrix3d, std::vector<size_t>>
-histogram_voting(const Eigen::Matrix<double, 8, Eigen::Dynamic> &features, double threshold, int range, int solver,
-                 int non_minimal_solver);
-Eigen::Matrix3d solver_hajder_barath_icra_2020(const Eigen::MatrixXd &data, int solver_type, bool use_fast_solver);
 } // namespace ECCV2026
 std::vector<Eigen::Matrix<double, 3, 4>> ACP1PCayleySolver(const Eigen::Vector2d &y, const Eigen::Vector3d &X,
                                                            const Eigen::Matrix2d &A, const Eigen::Vector3d &n);
