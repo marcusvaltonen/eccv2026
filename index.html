@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Gravity-aware Partially Calibrated Absolute Pose Estimation</title>
+    <link rel="icon" type="image/x-icon" href="static/images/favicon.ico">
+    <link rel="stylesheet" href="static/css/academicons.min.css">
+    <link rel="stylesheet" href="static/css/bulma.min.css">
+    <link rel="stylesheet" href="static/css/bulma-carousel.min.css">
+    <link rel="stylesheet" href="static/css/fontawesome.all.min.css">
+    <link rel="stylesheet" href="static/css/index.css">
+    <script src="static/js/bulma-carousel.min.js"></script>
+    <script defer src="static/js/fontawesome.all.min.js"></script>
+  </head>
+  <body>
+    <section class="hero">
+      <div class="container is-max-desktop">
+        <div class="hero-body has-text-centered pb-4">
+          <h1 class="title is-1">Gravity-aware Partially Calibrated Absolute Pose Estimation from Affine- or Rotation-covariant Features</h1>
+          <div class="is-size-5">
+            <a href="https://scholar.google.com/citations?user=U_U-GmcAAAAJ" target="_blank">Marcus Valtonen Örnhag</a><sup>1</sup>,
+            <a href="https://scholar.google.com/citations?user=UYL0UY0AAAAJ" target="_blank">Alberto Jaenal</a><sup>2</sup>,
+            <a href="https://scholar.google.com/citations?user=jLJ6ZaMAAAAJ" target="_blank">Stefan Adalbjörnsson</a><sup>1</sup>
+          </div>
+          <div class="is-size-5">
+            <sup>1</sup>Ericsson Research, Sweden &nbsp; &nbsp;
+            <sup>2</sup>University of Zaragoza, Spain
+            <br>
+            <br>
+            <br>
+            European Conference on Computer Vision (ECCV 2026)
+            <div class="pt-3">
+              <span class="spotlight-badge">★ Spotlight presentation ★</span>
+            </div>
+          </div>
+
+          <div class="buttons is-centered pt-4">
+            <!-- Paper deactivated: not yet published -->
+            <button class="button is-medium is-dark is-rounded is-responsive" disabled
+                    style="opacity: 0.5; cursor: not-allowed;" title="Coming soon">
+              <span class="icon">
+                <i class="fas fa-file-pdf"></i>
+              </span>
+              <span>Paper</span>
+            </button>
+            <a href="https://github.com/marcusvaltonen/eccv2026" target="_blank" class="button is-medium is-dark is-rounded is-responsive">
+              <span class="icon">
+                <i class="fab fa-github"></i>
+              </span>
+              <span>Code</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Optional teaser: replace with your figure or video.
+         The poster uses images/up1pfac_front2_transparent.png -->
+    <section class="hero">
+      <div class="container is-max-desktop">
+        <div class="hero-body">
+          <img src="static/images/up1pfac_front2_transparent.png" alt="Problem geometry" style="width:100%">
+          <h5 class="subtitle is-5 has-text-centered">
+            We estimate absolute camera pose and focal length jointly by combining
+            IMU gravity vectors with local geometric information from affine- or
+            orientation-covariant feature descriptors.
+          </h5>
+        </div>
+      </div>
+    </section>
+
+    <section class="hero is-light" id="abstract">
+      <div class="container is-max-desktop">
+        <div class="hero-body has-text-centered">
+          <p class="title">Abstract</p>
+          <div class="content has-text-justified is-size-5">
+            This work proposes two novel efficient solvers for joint absolute pose
+            and focal length estimation, by combining IMU gravity vectors with local
+            geometric information from feature descriptors. Using a known gravity
+            direction reduces the camera rotation to a single unknown yaw angle,
+            leaving five parameters in total: translation (3), yaw (1) and focal
+            length (1). We show that affine-covariant features provide four additional
+            constraints (enabling a single-correspondence solver), while
+            orientation-covariant features provide one additional constraint
+            (enabling a two-correspondence solver). Both formulations reduce to a
+            quartic polynomial in the tangent half-angle of the yaw and admit
+            analytical solutions, achieving faster and more accurate results than
+            traditional methods.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container is-max-desktop">
+        <h2 class="title">Method</h2>
+        <div class="content is-size-5">
+          <p><strong>Problem setup.</strong> The camera rotation is factored as
+          <em>R = R<sub>y</sub> R<sub>xz</sub></em>, with <em>R<sub>xz</sub></em>
+          known from the IMU gravity vector. This leaves five unknowns:</p>
+          <ul>
+            <li>Translation <em>t</em> (3 parameters)</li>
+            <li>Yaw angle via tangent half-angle <em>r = tan(&theta;/2)</em> (1 parameter)</li>
+            <li>Focal length <em>f</em> (1 parameter)</li>
+          </ul>
+          <p><strong>Constraints.</strong> Point projections give 2 constraints.
+          Affine-covariant descriptors add 4 new constraints (1 correspondence &rarr;
+          6 polynomial equations in 5 unknowns); orientation-covariant descriptors
+          add 1 new constraint (2 correspondences &rarr; 6 polynomial equations in
+          5 unknowns).</p>
+
+          <h3 class="title is-4">Solvers</h3>
+          <p><strong>UP1PfAC &mdash; 1 affine correspondence:</strong> the system is
+          linear in translation, allowing elimination; it reduces to a quartic in
+          <em>r</em> with 4 solutions. Back-substitution recovers focal length and
+          translation, and the unused constraint selects the optimal hypothesis.</p>
+          <p><strong>UP2PfORI &mdash; 2 orientation-covariant features:</strong> a
+          similar reduction using determinant constraints combines feature
+          orientation invariants with point projections, again yielding a quartic in
+          <em>r</em> with analytical solutions.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="hero is-light">
+      <div class="container is-max-desktop">
+        <div class="hero-body">
+          <h2 class="title">Results</h2>
+          <div class="content has-text-centered">
+            <img src="static/images/cambridge_SP+LG.png" alt="Cambridge Landmarks results" style="width:100%">
+            <h5 class="subtitle is-5">
+              <strong>Cambridge Landmarks:</strong> pose error, focal length error
+              and runtime using GC-RANSAC with SuperPoint+LightGlue.
+            </h5>
+            <img src="static/images/aachen_SP+LG.png" alt="Aachen results" style="width:100%">
+            <h5 class="subtitle is-5">
+              <strong>Aachen Day-Night:</strong> recall, focal length error and
+              runtime.
+            </h5>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="bibtex">
+      <div class="container is-max-desktop">
+        <h2 class="title">BibTeX</h2>
+        <pre class="is-relative">
+<code id="bibtex-code">
+@inproceedings{valtonenornhag2026gravity,
+  title={Gravity-aware Partially Calibrated Absolute Pose Estimation from Affine- or Rotation-covariant Features},
+  author={Valtonen~{\"O}rnhag, Marcus and Jaenal, Alberto and Adalbj{\"o}rnsson, Stefan},
+  booktitle={European Conference on Computer Vision (ECCV)},
+  year={2026},
+}
+</code><!--
+       --><button class="button is-absolute clipboard-button is-pulled-right m-2" onclick="copyToClipboard('#bibtex-code')">
+            <span class="icon is-small">
+              <i class="fas fa-copy"></i>
+            </span>
+          </button><!--
+     --></pre>
+      </div>
+    </section>
+  </body>
+
+  <script type="text/javascript">
+    function copyToClipboard(elemId) {
+        let elem = document.querySelector(elemId);
+        navigator.clipboard.writeText(elem.innerText);
+    }
+  </script>
+</html>

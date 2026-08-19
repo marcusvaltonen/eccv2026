@@ -1,0 +1,44 @@
+.is-absolute {
+  position: absolute;
+}
+
+.clipboard-button {
+  right: 0;
+  top: 0;
+}
+
+.poster {
+  height: 450px;
+}
+
+.poster > embed {
+  width: 100%;
+  height: 100%;
+}
+
+.pred {
+  color: rgb(60,180,75);
+}
+
+.gt {
+  color: rgb(0,130,200);
+}
+
+/* Spotlight badge */
+.spotlight-badge {
+  display: inline-block;
+  padding: 0.4em 1.1em;
+  font-weight: 700;
+  font-size: 1.15rem;
+  letter-spacing: 0.04em;
+  color: #fff;
+  background: linear-gradient(90deg, #ff6a00, #ee0979);
+  border-radius: 999px;
+  box-shadow: 0 3px 12px rgba(238, 9, 121, 0.4);
+  animation: spotlight-pulse 1.8s ease-in-out infinite;
+}
+
+@keyframes spotlight-pulse {
+  0%, 100% { transform: scale(1);    box-shadow: 0 3px 12px rgba(238, 9, 121, 0.4); }
+  50%      { transform: scale(1.01); box-shadow: 0 5px 20px rgba(238, 9, 121, 0.7); }
+}
