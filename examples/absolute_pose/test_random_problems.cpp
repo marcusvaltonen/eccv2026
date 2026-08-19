@@ -123,23 +123,6 @@ int main(int argc, char **argv) {
         Eigen::Matrix3d R_est = std::get<0>(out);
         Eigen::Vector3d t_est = std::get<1>(out);
         double f_est = std::get<2>(out);
-                const Eigen::IOFormat HeavyFmt(Eigen::FullPrecision, 0, ", ", ";\n", "[", "]", "[", "]");
-        std::cout << "=== INPUTS ===" << std::endl;
-std::cout << "R_ref:\n" << I.format(HeavyFmt) << std::endl;
-std::cout << "t_ref:\n" << O.format(HeavyFmt) << std::endl;
-std::cout << "focal_ref: " << f_ref << std::endl;
-std::cout << "A_orig:\n" << As[0].format(HeavyFmt) << std::endl;
-std::cout << "p_ref_orig:\n" << Xs[0].hnormalized().format(HeavyFmt) << std::endl;
-std::cout << "d: " << Xs[0](2) << std::endl;
-std::cout << "n:\n" << ns[0].format(HeavyFmt) << std::endl;
-std::cout << "p_query_orig:\n" << ys[0].format(HeavyFmt) << std::endl;
-std::cout << "Rxz:\n" << Rxz.format(HeavyFmt) << std::endl;
-
-
-std::cout << "\n=== OUTPUTS ===" << std::endl;
-std::cout << "R (rotation matrix):\n" << std::get<0>(out).format(HeavyFmt) << std::endl;
-std::cout << "t (translation vector):\n" << std::get<1>(out).format(HeavyFmt) << std::endl;
-std::cout << "focal: " << std::get<2>(out) << std::endl;
 
         Eigen::Quaterniond qsoln(R_est);
         Eigen::Vector3d csoln(-R_est.transpose() * t_est);
@@ -321,30 +304,6 @@ std::cout << "focal: " << std::get<2>(out) << std::endl;
         out5 = ECCV2026::solver_up2pf_ori(Is, Os, fs, angle_refs, angle_querys, p_ref_origs, ds, ns, ys, Rxz);
         end_time = std::chrono::high_resolution_clock::now();
         runtimes7.push_back(std::chrono::duration_cast<std::chrono::nanoseconds>(end_time - start_time).count());
-        
-
-
-	std::cout << "=== INPUTS ===\n" << std::endl;
-for (size_t i = 0; i < 2; ++i) {
-    std::cout << "--- Sample " << i << " ---" << std::endl;
-    std::cout << "R_ref:\n" << Is[i].format(HeavyFmt) << std::endl;
-    std::cout << "t_ref:\n" << Os[i].format(HeavyFmt) << std::endl;
-    std::cout << "focal_ref: " << fs[i] << std::endl;
-    std::cout << "angle_ref: " << angle_refs[i] << std::endl;
-    std::cout << "angle_query: " << angle_querys[i] << std::endl;
-    std::cout << "p_ref_orig:\n" << p_ref_origs[i].format(HeavyFmt) << std::endl;
-    std::cout << "d: " << ds[i] << std::endl;
-    std::cout << "n:\n" << ns[i].format(HeavyFmt) << std::endl;
-    std::cout << "p_query_orig:\n" << ys[i].format(HeavyFmt) << std::endl;
-}
-std::cout << "Rxz:\n" << Rxz.format(HeavyFmt) << std::endl;
-
-
-std::cout << "\n=== OUTPUTS ===\n" << std::endl;
-std::cout << "R (rotation matrix):\n" << std::get<0>(out5).format(HeavyFmt) << std::endl;
-std::cout << "t (translation vector):\n" << std::get<1>(out5).format(HeavyFmt) << std::endl;
-std::cout << "focal: " << std::get<2>(out5) << std::endl;
-
         
         R_est = std::get<0>(out5);
         t_est = std::get<1>(out5);
