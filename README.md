@@ -61,7 +61,8 @@ $ cd _build && ctest -j $nproc --output-on-failure
 
 
 ## GC-RANSAC integration and python bindings
-More information comming soon.
+This code has been integrated in GC-RANSAC, see this [repo](https://github.com/AlbertoJaenal/graph-cut-ransac/tree/eccv26).
+It includes instructions on how to compile and run it with python bindings.
 
 ## Citation
 If using our work, please cite:
